@@ -9,6 +9,8 @@ import errorHandler from './middlewares/errorHandler';
 import { routes } from './routes';
 
 const app = express();
+
+app.set('trust proxy', true);
 app.use(express.json());
 app.use(cors());
 

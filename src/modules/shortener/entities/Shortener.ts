@@ -1,14 +1,15 @@
+import { Exclude } from 'class-transformer';
+
 class Shortener {
-    id: string;
+    shortId: string;
 
     url: string;
-
-    shortId: string;
 
     clicks: number;
 
     limit: number | null;
 
+    @Exclude()
     userId: string | null;
 
     category: string | null;

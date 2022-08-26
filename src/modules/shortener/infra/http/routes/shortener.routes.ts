@@ -6,6 +6,8 @@ import { ShortenerController } from '../controllers/ShortenerController';
 const shortenerRouter = Router();
 const shortenerController = new ShortenerController();
 
+shortenerRouter.get('/', ensureAuthenticated, shortenerController.findAllByUserId);
+
 shortenerRouter.post(
     '/',
     celebrate({
@@ -30,5 +32,7 @@ shortenerRouter.post(
     }),
     shortenerController.createPrivate,
 );
+
+shortenerRouter.get('/:shortId', shortenerController.findByShortId);
 
 export { shortenerRouter };
