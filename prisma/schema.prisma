@@ -11,12 +11,12 @@ datasource db {
 }
 
 model User {
-  id        String      @id @default(uuid())
-  username  String      @unique
-  email     String      @unique
-  password  String
-  createdAt DateTime    @default(now())
-  Shortener Shortener[]
+  id         String      @id @default(uuid())
+  username   String      @unique
+  email      String      @unique
+  password   String
+  createdAt  DateTime    @default(now())
+  shorteners Shortener[]
 
   @@map("users")
 }
@@ -32,6 +32,7 @@ model Shortener {
   category  String?
   lifeTime  DateTime
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("shorteners")
 }

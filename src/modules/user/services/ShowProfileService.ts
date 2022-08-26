@@ -1,8 +1,6 @@
-import { IHashProvider } from '@/shared/containers/providers/HashProvider/models/IHashProvider';
 import { HttpException } from '@/shared/errors/httpException';
 import { plainToInstance } from 'class-transformer';
 import { inject, injectable } from 'tsyringe';
-import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
 import { User } from '../entities/User';
 import { IUserRepository } from '../repositories/IUserRepository';
 
