@@ -5,8 +5,8 @@ import { verify } from 'jsonwebtoken';
 
 interface IJwtProvider {
     iat: number;
-    exp: number;
-    sub: string;
+    expiresIn: number;
+    subject: string;
 }
 
 const ensureAuthenticated = (request: Request, _: Response, next: NextFunction): void => {
@@ -19,10 +19,10 @@ const ensureAuthenticated = (request: Request, _: Response, next: NextFunction):
     try {
         const decoded = verify(token, jwt.secret);
 
-        const { sub } = decoded as IJwtProvider;
+        const { subject } = decoded as IJwtProvider;
 
         request.user = {
-            id: sub,
+            id: subject,
         };
 
         return next();
