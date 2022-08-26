@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "strict": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": false,
+        "strictPropertyInitialization": false,
+        "target": "esnext",
+        "allowJs": true,
+        "module": "commonjs",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
