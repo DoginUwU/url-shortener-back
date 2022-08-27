@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { AuthenticateUserService } from '@/modules/user/services/AuthenticateUserService';
+import { ValidateSessionService } from '@/modules/user/services/ValidateSessionService';
 
 class SessionController {
     async create(request: Request, response: Response): Promise<Response> {
@@ -12,6 +13,16 @@ class SessionController {
             email,
             password,
         });
+
+        return response.json(userAndToken);
+    }
+
+    async validate(request: Request, response: Response): Promise<Response> {
+        const { token } = request.body;
+
+        const validateSession = container.resolve(ValidateSessionService);
+
+        const userAndToken = await validateSession.execute(token);
 
         return response.json(userAndToken);
     }

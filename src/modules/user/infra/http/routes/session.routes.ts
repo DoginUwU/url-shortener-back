@@ -1,5 +1,5 @@
-import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
+import { celebrate, Joi, Segments } from 'celebrate';
 import { SessionController } from '../controllers/SessionController';
 
 const sessionRouter = Router();
@@ -14,6 +14,16 @@ sessionRouter.post(
         },
     }),
     sessionController.create,
+);
+
+sessionRouter.post(
+    '/validate',
+    celebrate({
+        [Segments.BODY]: {
+            token: Joi.string().required(),
+        },
+    }),
+    sessionController.validate,
 );
 
 export { sessionRouter };
