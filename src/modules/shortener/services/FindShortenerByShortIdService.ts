@@ -1,3 +1,4 @@
+import { IHashProvider } from '@/shared/containers/providers/HashProvider/models/IHashProvider';
 import { HttpException } from '@/shared/errors/httpException';
 import { plainToInstance } from 'class-transformer';
 import { inject, injectable } from 'tsyringe';
@@ -13,9 +14,11 @@ class FindShortenerByShortIdService {
         private shortenerRepository: IShortenerRepository,
         @inject('IPAddressRepository')
         private ipAddressRepository: IIPAddressRepository,
+        @inject('HashProvider')
+        private hashProvider: IHashProvider,
     ) {}
 
-    async execute({ shortId, address }: IFindShortenerByShortIDDTO): Promise<Shortener> {
+    async execute({ shortId, address, password }: IFindShortenerByShortIDDTO): Promise<Shortener> {
         const shortener = await this.shortenerRepository.findByShortId(shortId);
 
         if (!shortener) {
@@ -32,6 +35,18 @@ class FindShortenerByShortIdService {
 
         if (shortener.lifeTime < date) {
             throw new HttpException('Link expirado.', 403);
+        }
+
+        if (shortener.password) {
+            if (!password) {
+                throw new HttpException('Link protegido por senha.', 403);
+            }
+
+            const validate = await this.hashProvider.validate(password, shortener.password);
+
+            if (!validate) {
+                throw new HttpException('Senha incorreta.', 403);
+            }
         }
 
         const ipAddresses = await this.ipAddressRepository.findByShortId(shortId);

@@ -25,6 +25,7 @@ model Shortener {
   shortId   String      @id @unique
   user      User?       @relation(fields: [userId], references: [id])
   url       String
+  password  String?
   limit     Int?
   clicks    Int         @default(0)
   userId    String?
@@ -38,12 +39,11 @@ model Shortener {
 }
 
 model IPAddress {
-  id               String    @id @default(uuid())
-  short            Shortener @relation(fields: [shortenerShortId], references: [shortId])
-  shortId          String
-  address          String
-  createdAt        DateTime  @default(now())
-  shortenerShortId String
+  id        String    @id @default(uuid())
+  short     Shortener @relation(fields: [shortId], references: [shortId])
+  shortId   String
+  address   String
+  createdAt DateTime  @default(now())
 
   @@map("ip_addresses")
 }

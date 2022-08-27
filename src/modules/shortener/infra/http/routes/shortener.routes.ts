@@ -15,6 +15,7 @@ shortenerRouter.post(
             url: Joi.string().required(),
             limit: Joi.number(),
             category: Joi.string(),
+            password: Joi.string(),
         },
     }),
     shortenerController.create,
@@ -33,6 +34,14 @@ shortenerRouter.post(
     shortenerController.createPrivate,
 );
 
-shortenerRouter.get('/:shortId', shortenerController.findByShortId);
+shortenerRouter.get(
+    '/:shortId',
+    celebrate({
+        [Segments.QUERY]: {
+            password: Joi.string(),
+        },
+    }),
+    shortenerController.findByShortId,
+);
 
 export { shortenerRouter };

@@ -3,6 +3,7 @@ interface IRequestCreateShortenerDTO {
     limit: number | null;
     userId: string | null;
     category: string | null;
+    password: string | null;
 }
 
 interface ICreateShortenerDTO {
@@ -11,6 +12,7 @@ interface ICreateShortenerDTO {
     limit: number | null;
     userId: string | null;
     category: string | null;
+    password: string | null;
     lifeTime: Date;
 }
 

@@ -41,6 +41,7 @@ class ShortenerController {
     }
 
     public async findByShortId(request: Request, response: Response): Promise<Response> {
+        const password = request.query.password as unknown as string | undefined;
         const { shortId } = request.params;
         const address = (request.ip || request.headers['x-forwarded-for'] || request.socket.remoteAddress) as string;
 
@@ -49,6 +50,7 @@ class ShortenerController {
         const shortener = await findShortenerByShortId.execute({
             shortId,
             address,
+            password,
         });
 
         return response.json(shortener);

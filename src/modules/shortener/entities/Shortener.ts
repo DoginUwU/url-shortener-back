@@ -10,6 +10,9 @@ class Shortener {
     limit: number | null;
 
     @Exclude()
+    password: string | null;
+
+    @Exclude()
     userId: string | null;
 
     category: string | null;
