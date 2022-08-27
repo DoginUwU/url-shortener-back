@@ -26,6 +26,10 @@ class ValidateSessionService {
 
             const user = await this.userRepository.findById(id);
 
+            if (!user) {
+                throw new HttpException('Usuário não encontrado', 401);
+            }
+
             return {
                 user: plainToInstance(User, user),
                 token,
