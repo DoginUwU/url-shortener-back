@@ -29,6 +29,7 @@ shortenerRouter.post(
             url: Joi.string().required(),
             limit: Joi.number(),
             category: Joi.string(),
+            password: Joi.string(),
         },
     }),
     shortenerController.createPrivate,
