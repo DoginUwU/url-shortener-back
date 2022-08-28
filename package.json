@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect=4321 --exit-child --transpile-only --ignore-watch node_modules src/shared/infra/server.ts",
     "lint": "eslint src/**/*.ts",
-    "build": "tsc"
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "postinstall": "prisma generate && prisma migrate deploy",
+    "start": "cross-env NODE_ENV=production node dist/shared/infra/server.js",
+    "prod": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register --files src/shared/infra/server.ts",
+    "docker:up": "docker-compose up -d",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@joi/date": "^2.1.0",
