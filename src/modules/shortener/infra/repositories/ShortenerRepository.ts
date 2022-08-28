@@ -43,6 +43,14 @@ class ShortenerRepository implements IShortenerRepository {
 
         return shorteners;
     }
+
+    async delete(shortId: string): Promise<void> {
+        await prismaClient.shortener.delete({
+            where: {
+                shortId,
+            },
+        });
+    }
 }
 
 export { ShortenerRepository };

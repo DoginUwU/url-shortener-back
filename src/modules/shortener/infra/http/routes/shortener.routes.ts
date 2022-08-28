@@ -45,4 +45,6 @@ shortenerRouter.get(
     shortenerController.findByShortId,
 );
 
+shortenerRouter.delete('/:shortId', ensureAuthenticated, shortenerController.delete);
+
 export { shortenerRouter };

@@ -40,7 +40,7 @@ model Shortener {
 
 model IPAddress {
   id        String    @id @default(uuid())
-  short     Shortener @relation(fields: [shortId], references: [shortId])
+  short     Shortener @relation(fields: [shortId], references: [shortId], onDelete: Cascade)
   shortId   String
   address   String
   createdAt DateTime  @default(now())

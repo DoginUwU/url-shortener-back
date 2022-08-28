@@ -59,7 +59,7 @@ class FindShortenerByShortIdService {
             }
         });
 
-        if (!alreadyOpenThisURL) {
+        if (!alreadyOpenThisURL && address) {
             await this.ipAddressRepository.create({ shortId, address });
         }
 

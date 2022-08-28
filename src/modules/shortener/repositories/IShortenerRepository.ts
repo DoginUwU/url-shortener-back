@@ -7,6 +7,7 @@ interface IShortenerRepository {
     findByShortId(shortId: string): Promise<Shortener | null>;
     findByUserId(userId: string): Promise<Shortener[]>;
     update(shortId: string, data: IUpdateShortenerDTO): Promise<Shortener>;
+    delete(shortId: string): Promise<void>;
 }
 
 export { IShortenerRepository };

@@ -14,7 +14,7 @@ class SessionController {
             password,
         });
 
-        return response.json(userAndToken);
+        return response.status(201).json(userAndToken);
     }
 
     async validate(request: Request, response: Response): Promise<Response> {
