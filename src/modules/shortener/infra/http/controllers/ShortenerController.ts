@@ -66,7 +66,7 @@ class ShortenerController {
 
         await deleteShortener.execute(shortId);
 
-        return response.send();
+        return response.status(204).send();
     }
 }
 

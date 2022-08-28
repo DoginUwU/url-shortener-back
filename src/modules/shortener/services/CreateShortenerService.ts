@@ -1,9 +1,10 @@
+import { inject, injectable } from 'tsyringe';
+import { plainToInstance } from 'class-transformer';
+
 import { IUserRepository } from '@/modules/user/repositories/IUserRepository';
 import { IHashProvider } from '@/shared/containers/providers/HashProvider/models/IHashProvider';
 import { IShortenerProvider } from '@/shared/containers/providers/ShortenerProvider/models/IShortenerProvider';
 import { HttpException } from '@/shared/errors/httpException';
-import { plainToInstance } from 'class-transformer';
-import { inject, injectable } from 'tsyringe';
 import { IRequestCreateShortenerDTO } from '../dtos/ICreateShortenerDTO';
 import { Shortener } from '../entities/Shortener';
 import { IShortenerRepository } from '../repositories/IShortenerRepository';
@@ -22,7 +23,7 @@ class CreateShortenerService {
     ) {}
 
     async execute(data: IRequestCreateShortenerDTO): Promise<Shortener> {
-        const { userId } = data;
+        const { userId, lifeTime } = data;
         let { password } = data;
 
         if (userId) {
@@ -37,14 +38,14 @@ class CreateShortenerService {
             password = await this.hashProvider.ecrypt(password);
         }
 
-        const shortId = this.shortenerProvider.create();
+        if (new Date(lifeTime) < new Date()) {
+            throw new HttpException('Data de expiração inválida.', 400);
+        }
 
-        const lifeTime = new Date();
-        lifeTime.setDate(lifeTime.getDate() + 10);
+        const shortId = this.shortenerProvider.create();
 
         const shortener = await this.shortenerRepository.create({
             ...data,
-            lifeTime,
             shortId,
             password,
         });

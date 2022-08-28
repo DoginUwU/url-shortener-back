@@ -4,16 +4,11 @@ interface IRequestCreateShortenerDTO {
     userId: string | null;
     category: string | null;
     password: string | null;
+    lifeTime: string;
 }
 
-interface ICreateShortenerDTO {
-    url: string;
+interface ICreateShortenerDTO extends IRequestCreateShortenerDTO {
     shortId: string;
-    limit: number | null;
-    userId: string | null;
-    category: string | null;
-    password: string | null;
-    lifeTime: Date;
 }
 
 export { ICreateShortenerDTO, IRequestCreateShortenerDTO };
