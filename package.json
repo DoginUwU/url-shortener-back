@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect=4321 --exit-child --transpile-only --ignore-watch node_modules src/shared/infra/server.ts",
     "lint": "eslint src/**/*.ts",
-    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "build": "tsc-silent --suppress @node_modules/.prisma/ --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "postinstall": "prisma generate && prisma migrate deploy",
-    "start": "cross-env NODE_ENV=production node dist/shared/infra/server.js",
-    "prod": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register --files src/shared/infra/server.ts",
+    "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register --files src/shared/infra/server.ts",
     "docker:up": "docker-compose up -d",
     "prisma:generate": "prisma generate"
   },
@@ -19,12 +18,15 @@
     "celebrate": "^15.0.1",
     "class-transformer": "^0.5.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "request-ip": "^3.3.0",
+    "tsc-silent": "^1.2.2",
+    "tscpaths": "^0.0.9",
     "tsyringe": "^4.7.0"
   },
   "devDependencies": {

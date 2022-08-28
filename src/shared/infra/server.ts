@@ -19,6 +19,6 @@ app.use(routes);
 app.use(ErrorsCelebrate());
 app.use(errorHandler);
 
-app.listen(8000, () => {
-    console.log('Server started on port 8000');
+app.listen(process.env.PORT || 8000, () => {
+    console.log(`Server running on port ${process.env.PORT || 8000}`);
 });
