@@ -27,6 +27,7 @@ class FindShortenerByShortIdService {
 
         if (shortener.limit) {
             if (shortener.clicks >= shortener.limit) {
+                await this.shortenerRepository.delete(shortId);
                 throw new HttpException('Limite atingido.', 403);
             }
         }
@@ -34,6 +35,7 @@ class FindShortenerByShortIdService {
         const date = new Date();
 
         if (shortener.lifeTime < date) {
+            await this.shortenerRepository.delete(shortId);
             throw new HttpException('Link expirado.', 403);
         }
 
