@@ -1,13 +1,10 @@
 import ensureAuthenticated from '@/modules/user/infra/http/middlewares/ensureAuthenticated';
-import { celebrate, Joi as JoiBase, Segments } from 'celebrate';
-import JoiDate from '@joi/date';
+import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { ShortenerController } from '../controllers/ShortenerController';
 
 const shortenerRouter = Router();
 const shortenerController = new ShortenerController();
-
-const Joi = JoiBase.extend(JoiDate);
 
 shortenerRouter.get('/', ensureAuthenticated, shortenerController.findAllByUserId);
 
@@ -20,6 +17,7 @@ shortenerRouter.post(
             limit: Joi.number(),
             category: Joi.string(),
             password: Joi.string(),
+            skip: Joi.boolean(),
         },
     }),
     shortenerController.create,
@@ -35,6 +33,7 @@ shortenerRouter.post(
             limit: Joi.number(),
             category: Joi.string(),
             password: Joi.string(),
+            skip: Joi.boolean(),
         },
     }),
     shortenerController.createPrivate,

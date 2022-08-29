@@ -9,6 +9,8 @@ class Shortener {
 
     limit: number | null;
 
+    skip: boolean;
+
     @Exclude()
     password: string | null;
 
